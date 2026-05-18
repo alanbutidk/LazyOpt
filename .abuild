@@ -1,0 +1,22 @@
+get OS
+
+let CC = -m nuitka
+
+if OS==Windows_NT then
+  let PYNAME = python
+  let RM = rd /s /q
+else then
+  let PYNAME = python3
+  let RM = rm -rf
+done
+
+recipe clean
+recipe build
+
+let APP = LazyOpt
+let SRC = lazyopt.py
+
+build:
+  (PYNAME) (CC) --standalone --onefile -o (APP) --output-dir=Release/v1.0.3/ --nofollow-import-to=email,tkinter,kivy,selenium,http-server,urllib,requests,rich,pygments,textual,google-genai,pip,setup-tools (SRC)
+clean:
+  (RM) (APP).build (APP).dist (APP).onefile-build

@@ -20,8 +20,7 @@ Add it to your PATH and remember, *The server executable needs to be at the same
 
 Uses the *GPL3* License
 
-------------------
+-----------------
+# Small Notice
+**The File ```server.go``` is made by AI (Claude.ai) since i dont know the Go Language!**
 
-
-# Small notice
-*_The file ```server.go``` is made with AI (because i dont know the Go language), and the getccinfo comments are because i couldnt figure out the flag for a specific compiler_*
