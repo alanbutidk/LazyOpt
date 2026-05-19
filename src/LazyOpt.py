@@ -80,9 +80,9 @@ if "pathto" in args:
                             results.append(entry.path)
                     elif entry.is_dir(follow_symlinks=False):
                         q.put(entry.path)
-                except (PermissionError, KeyboardInterrupt):
+                except (PermissionError, KeyboardInterrupt, OSError):
                     pass
-        except (PermissionError, KeyboardInterrupt):
+        except (PermissionError, KeyboardInterrupt, OSError):
             pass
         return results
     with ThreadPoolExecutor() as executor:
