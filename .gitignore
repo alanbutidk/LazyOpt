@@ -1,3 +1,6 @@
 encrypted
-Releases/
+Releases/*
+*.exe
+#*/*/*.exe
+#*/*.exe
 RELEASE.md

@@ -80,9 +80,9 @@ if "pathto" in args:
                             results.append(entry.path)
                     elif entry.is_dir(follow_symlinks=False):
                         q.put(entry.path)
-                except (PermissionError, KeyboardInterrupt, OSError):
+                except (PermissionError, KeyboardInterrupt):
                     pass
-        except (PermissionError, KeyboardInterrupt, OSError):
+        except (PermissionError, KeyboardInterrupt):
             pass
         return results
     with ThreadPoolExecutor() as executor:
@@ -201,9 +201,9 @@ if "lserver" in args:
         wherelserver = args.index("lserver")
         server_args = args[wherelserver + 1:]
         if platform.system() == "Windows":
-            binary = os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "server.exe")
+            binary = os.path.join(os.path.dirname(os.path.abspath(__file__)), "server.exe")
         else:
-            binary = os.path.join(os.path.dirname(os.path.abspath(sys.executable)), "server")
+            binary = os.path.join(os.path.dirname(os.path.abspath(__file__)), "server")
         if not os.path.isfile(binary):
             print(f"\x1b[31mserver binary not found at {binary}\033[0m")
         else:
@@ -264,7 +264,7 @@ if "getccinfo" in args:
             "clang": ["clang", "--version"],
             "go":    ["go",    "version"],
             "rustc": ["rustc", "--version"],
-            "cl":    ["cl"], #somehow cl prints version without a flag!
+            "cl":    ["cl"],               # cl prints version on stderr with no flags
             "javac": ["javac", "-version"],
         }
         if ccname not in cc_version_flags:
@@ -272,7 +272,7 @@ if "getccinfo" in args:
         else:
             try:
                 result = s.run(cc_version_flags[ccname], capture_output=True, text=True)
-                #no need for cl, its weird
+                # cl puts version on stderr, everything else on stdout
                 output = (result.stdout or result.stderr or "").splitlines()
                 version_line = output[0].strip() if output else "unknown"
                 print(f"{ccname} {version_line}")
@@ -291,7 +291,7 @@ if "listpath" in args:
     except OSError:
         print("\x1b[31mOSError was recorded, could not list PATH!\033[0m")
 
-#Code ends on <18/5/2026> at -> 1:53pm:))
+#Code ends on <5/17/2026> at -> 4:38pm:))
 #This was mind-breaking, took me 3 days!
 #If you have bugs, please report them or ```crush them```
 #------------------------------------------------------------------------------------------------------------------------------
